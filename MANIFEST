@@ -1,0 +1,10 @@
+Changes
+Makefile.PL
+MANIFEST
+Nausparse.xs
+ppport.h
+README
+t/Nausparse.t
+fallback/const-c.inc
+fallback/const-xs.inc
+lib/Nausparse.pm

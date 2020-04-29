@@ -1,0 +1,6 @@
+Revision history for Perl extension Nausparse.
+
+0.01  Wed Apr 29 08:51:22 2020
+	- original version; created by h2xs 1.23 with options
+		/usr/include/nauty/nausparse.h
+
