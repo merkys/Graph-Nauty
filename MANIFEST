@@ -4,6 +4,4 @@ MANIFEST
 Nausparse.xs
 README
 t/Nausparse.t
-fallback/const-c.inc
-fallback/const-xs.inc
 lib/Nausparse.pm

@@ -9,8 +9,4 @@
 #undef doref
 #include <nauty/nausparse.h>
 
-#include "const-c.inc"
-
 MODULE = Nausparse		PACKAGE = Nausparse		
-
-INCLUDE: const-xs.inc
