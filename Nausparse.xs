@@ -18,9 +18,9 @@ MODULE = Nausparse		PACKAGE = Nausparse
 void
 sparsenauty(sg, lab, ptn, orbits, options, stats, sg2)
     Sparsegraph *sg
-    int lab
-    int ptn
-    int orbits
+    int *lab
+    int *ptn
+    int *orbits
     Options *options
     Stats *stats
     Sparsegraph *sg2

@@ -6,3 +6,16 @@ Sparsegraph * T_PTROBJ
 
 TYPEMAP
 Stats * T_PTROBJ
+
+TYPEMAP
+int * T_AVREF
+
+INPUT
+T_AVREF
+    {
+        $var = malloc( sizeof(int*) * (av_top_index((AV*)SvRV($arg))+1) );
+        ssize_t i;
+        for( i = 0; i < av_top_index((AV*)SvRV($arg))+1; i++ ) {
+            $var[i] = SvIV(av_fetch((AV*)SvRV($arg), i))
+        }
+    }
