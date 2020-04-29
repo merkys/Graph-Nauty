@@ -1,21 +1,42 @@
 TYPEMAP
 Options * T_PTROBJ
-
-TYPEMAP
-Sparsegraph * T_PTROBJ
-
-TYPEMAP
+sparsegraph * T_PTROBJ_SPARSEGRAPH
 Stats * T_PTROBJ
-
-TYPEMAP
 int * T_AVREF
 
 INPUT
 T_AVREF
-    {
+    STMT_START {
         $var = malloc( sizeof(int*) * (av_top_index((AV*)SvRV($arg))+1) );
-        ssize_t i;
-        for( i = 0; i < av_top_index((AV*)SvRV($arg))+1; i++ ) {
-            $var[i] = SvIV(av_fetch((AV*)SvRV($arg), i))
+        ssize_t ix_$var;
+        for( ix_$var = 0; ix_$var < av_top_index((AV*)SvRV($arg))+1; ix_$var++ ) {
+            $var[ix_$var] = SvIV(*av_fetch((AV*)SvRV($arg), ix_$var, 0));
         }
-    }
+    } STMT_END
+T_PTROBJ_SPARSEGRAPH
+    STMT_START {
+        $var->nde = (size_t)SvIV(*hv_fetch((HV*)SvRV($arg), \"nde\", 3, 0));
+        $var->nv = (int)SvIV(*hv_fetch((HV*)SvRV($arg), \"nv\", 2, 0));
+
+        SV *v = (SV*)*hv_fetch((HV*)SvRV($arg), \"v\",  1, 0);
+        SV *d = (SV*)*hv_fetch((HV*)SvRV($arg), \"d\",  1, 0);
+        SV *e = (SV*)*hv_fetch((HV*)SvRV($arg), \"e\",  1, 0);
+
+        /*
+        $var->v  = v;
+        $var->d  = d;
+        $var->e  = e;
+        */
+
+        $var->vlen = (size_t)av_top_index((AV*)SvRV(v))+1;
+        $var->dlen = (size_t)av_top_index((AV*)SvRV(d))+1;
+        $var->elen = (size_t)av_top_index((AV*)SvRV(e))+1;
+
+        $var->d = malloc( sizeof(int) * $var->dlen );
+        $var->e = malloc( sizeof(int) * $var->elen );
+
+        size_t ix_$var;
+        for( ix_$var = 0; ix_$var < $var->dlen; ix_$var++ ) {
+            $var->d[ix_$var] = (int)SvIV(*av_fetch((AV*)SvRV(v), ix_$var, 0));
+        }
+    } STMT_END
