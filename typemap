@@ -1,0 +1,8 @@
+TYPEMAP
+Options * T_PTROBJ
+
+TYPEMAP
+Sparsegraph * T_PTROBJ
+
+TYPEMAP
+Stats * T_PTROBJ
