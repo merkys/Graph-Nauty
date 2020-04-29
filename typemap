@@ -22,21 +22,22 @@ T_PTROBJ_SPARSEGRAPH
         SV *d = (SV*)*hv_fetch((HV*)SvRV($arg), \"d\",  1, 0);
         SV *e = (SV*)*hv_fetch((HV*)SvRV($arg), \"e\",  1, 0);
 
-        /*
-        $var->v  = v;
-        $var->d  = d;
-        $var->e  = e;
-        */
-
         $var->vlen = (size_t)av_top_index((AV*)SvRV(v))+1;
         $var->dlen = (size_t)av_top_index((AV*)SvRV(d))+1;
         $var->elen = (size_t)av_top_index((AV*)SvRV(e))+1;
 
-        $var->d = malloc( sizeof(int) * $var->dlen );
-        $var->e = malloc( sizeof(int) * $var->elen );
+        $var->v = malloc( sizeof(size_t) * $var->vlen );
+        $var->d = malloc( sizeof(int)    * $var->dlen );
+        $var->e = malloc( sizeof(int)    * $var->elen );
 
         size_t ix_$var;
+        for( ix_$var = 0; ix_$var < $var->vlen; ix_$var++ ) {
+            $var->v[ix_$var] = (size_t)SvIV(*av_fetch((AV*)SvRV(v), ix_$var, 0));
+        }
         for( ix_$var = 0; ix_$var < $var->dlen; ix_$var++ ) {
-            $var->d[ix_$var] = (int)SvIV(*av_fetch((AV*)SvRV(v), ix_$var, 0));
+            $var->d[ix_$var] = (int)SvIV(*av_fetch((AV*)SvRV(d), ix_$var, 0));
+        }
+        for( ix_$var = 0; ix_$var < $var->elen; ix_$var++ ) {
+            $var->e[ix_$var] = (int)SvIV(*av_fetch((AV*)SvRV(e), ix_$var, 0));
         }
     } STMT_END
