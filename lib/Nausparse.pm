@@ -65,6 +65,38 @@ XSLoader::load('Nausparse', $VERSION);
 
 # Preloaded methods go here.
 
+sub automorphism_group
+{
+    my( $graph ) = @_;
+
+    my $nauty_graph = {
+        nv  => scalar $graph->vertices,
+        nde => scalar $graph->edges * 2, # as undirected
+        e   => [],
+    };
+    my $n = 0;
+    my $vertices = { map { $_ => { index => $n++, vertice => $_ } }
+                         $graph->vertices };
+
+    for my $v (map { $vertices->{$_}{vertice} }
+               sort { $vertices->{$a}{index} <=>
+                      $vertices->{$b}{index} } keys %$vertices) {
+        push @{$nauty_graph->{d}}, scalar $graph->neighbours( $v );
+        push @{$nauty_graph->{v}}, scalar @{$nauty_graph->{e}};
+        for ($graph->neighbours( $v )) {
+            push @{$nauty_graph->{e}}, $vertices->{$_}{index};
+        }
+    }
+
+    my $statsblk = sparsenauty( $nauty_graph,
+                                [ 0..$n-1 ],
+                                [ ( 1 ) x $n ],
+                                [ ( 0 ) x $n ],
+                                1,
+                                undef );
+    return $statsblk->{grpsize1};
+}
+
 # Autoload methods go after =cut, and are processed by the autosplit program.
 
 1;
