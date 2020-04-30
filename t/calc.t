@@ -1,8 +1,7 @@
 use strict;
 use warnings;
-use Test::More tests => 1;
-
 use Nausparse;
+use Test::More tests => 4;
 
 my $n = 5;
 my @e = ( 0 ) x $n;
@@ -18,14 +17,14 @@ my $sparse = {
     d   => [ ( 2 ) x $n ],
     e   => \@e,
 };
-my $arr = [ ( 0 ) x $n ];
 
-use Data::Dumper;
-print Dumper
-    Nausparse::sparsenauty( $sparse,
-                            [ 0..$n-1 ],
-                            [ ( 1 ) x $n ],
-                            [ ( 0 ) x $n ],
-                            1,
-                            undef );
-ok( 1 == 1 );
+my $statsblk = Nausparse::sparsenauty( $sparse,
+                                       [ 0..$n-1 ],
+                                       [ ( 1 ) x $n ],
+                                       [ ( 0 ) x $n ],
+                                       1,
+                                       undef );
+ok( $statsblk->{errstatus} == 0 );
+ok( $statsblk->{grpsize1}  == 10 );
+ok( $statsblk->{grpsize2}  == 0 );
+ok( $statsblk->{numorbits} == 1 );
