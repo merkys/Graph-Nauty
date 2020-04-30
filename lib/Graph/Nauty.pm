@@ -18,7 +18,11 @@ XSLoader::load('Graph::Nauty', $VERSION);
 
 sub automorphism_group
 {
-    my( $graph ) = @_;
+    my( $graph, $color_sub ) = @_;
+
+    if( !$color_sub ) {
+        $color_sub = sub { "$_[0]" };
+    }
 
     my $nauty_graph = {
         nv  => scalar $graph->vertices,
@@ -27,6 +31,7 @@ sub automorphism_group
     };
     my $n = 0;
     my $vertices = { map { $_ => { index => $n++, vertice => $_ } }
+                     sort { $color_sub->( $a ) cmp $color_sub->( $b ) }
                          $graph->vertices };
 
     for my $v (map { $vertices->{$_}{vertice} }
