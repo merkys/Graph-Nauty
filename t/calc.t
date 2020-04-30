@@ -27,6 +27,5 @@ print Dumper
                             [ ( 1 ) x $n ],
                             [ ( 0 ) x $n ],
                             1,
-                            1,
                             undef );
 ok( 1 == 1 );

@@ -47,6 +47,5 @@ T_PTROBJ_OPTIONBLK
     printf( \"T_PTROBJ_OPTIONBLK requested\\n\" );
     DEFAULTOPTIONS_SPARSEGRAPH( new_$var );
     $var = new_$var;
-    $var.writeautoms = TRUE;
     $var.defaultptn  = FALSE;
     printf( \"T_PTROBJ_OPTIONBLK converted\\n\" );
