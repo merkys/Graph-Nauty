@@ -35,7 +35,7 @@ our @EXPORT = qw(
 	SWG_INIT
 );
 
-our $VERSION = '0.01';
+our $VERSION = '0.01-dev';
 
 sub AUTOLOAD {
     # This AUTOLOAD is used to 'autoload' constants from the constant()

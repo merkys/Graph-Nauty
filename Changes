@@ -1,6 +1,5 @@
-Revision history for Perl extension Nausparse.
+Revision history for Perl extension Graph::Nauty.
 
-0.01  Wed Apr 29 08:51:22 2020
-	- original version; created by h2xs 1.23 with options
-		/usr/include/nauty/nausparse.h
-
+0.01  unreleased
+	- original version; created by h2xs 1.23 from
+	  /usr/include/nauty/nausparse.h
