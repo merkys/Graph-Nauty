@@ -17,11 +17,12 @@ T_PTROBJ_SPARSEGRAPH
         printf( \"sparse init\\n\" );
         if( SvOK($arg) ) {
             int vertices_$var = (int)SvIV(*hv_fetch((HV*)SvRV($arg), \"nv\", 2, 0));
+            int edges_$var    = (size_t)SvIV(*hv_fetch((HV*)SvRV($arg), \"nde\", 3, 0));
 
             SG_INIT( $var );
-            SG_ALLOC( $var, vertices_$var, 2*vertices_$var, \"malloc\" );
+            SG_ALLOC( $var, vertices_$var, edges_$var, \"malloc\" );
 
-            $var.nde = (size_t)SvIV(*hv_fetch((HV*)SvRV($arg), \"nde\", 3, 0));
+            $var.nde = edges_$var;
             $var.nv  = vertices_$var;
 
             SV *v = (SV*)*hv_fetch((HV*)SvRV($arg), \"v\",  1, 0);
