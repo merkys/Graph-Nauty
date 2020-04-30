@@ -50,9 +50,3 @@ T_PTROBJ_OPTIONBLK
     $var.writeautoms = TRUE;
     $var.defaultptn  = FALSE;
     printf( \"T_PTROBJ_OPTIONBLK converted\\n\" );
-
-OUTPUT
-T_PTROBJ_STATSBLK
-    printf( \"T_PTROBJ_STATSBLK called\\n\" );
-    sv_setiv( (SV*)$arg, 10 );
-    printf( \"T_PTROBJ_STATSBLK done\\n\" );

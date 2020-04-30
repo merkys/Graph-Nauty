@@ -20,11 +20,13 @@ my $sparse = {
 };
 my $arr = [ ( 0 ) x $n ];
 
-Nausparse::sparsenauty( $sparse,
-                        [ ( 0 ) x $n ],
-                        [ ( 0 ) x $n ],
-                        [ ( 0 ) x $n ],
-                        1,
-                        1,
-                        $sparse );
+use Data::Dumper;
+print Dumper
+    Nausparse::sparsenauty( $sparse,
+                            [ 0..$n-1 ],
+                            [ ( 1 ) x $n ],
+                            [ ( 0 ) x $n ],
+                            1,
+                            1,
+                            undef );
 ok( 1 == 1 );

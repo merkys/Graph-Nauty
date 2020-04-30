@@ -11,12 +11,19 @@
 
 MODULE = Nausparse		PACKAGE = Nausparse
 
-void
-sparsenauty(sg, lab, ptn, orbits, options, OUT stats, sg2)
-    sparsegraph &sg
-    int * lab
-    int * ptn
-    int * orbits
-    optionblk &options
-    statsblk stats = NO_INIT
-    sparsegraph &sg2
+SV *
+sparsenauty(sg, lab, ptn, orbits, options, stats, sg2)
+        sparsegraph &sg
+        int * lab
+        int * ptn
+        int * orbits
+        optionblk &options
+        statsblk &stats = NO_INIT
+        sparsegraph &sg2
+    CODE:
+        sparsenauty(&sg, lab, ptn, orbits, &options, &stats, &sg2);
+        HV *statsblk = newHV();
+        hv_store( statsblk, "grpsize1", 8, newSViv( stats.grpsize1 ), 0 );
+        RETVAL = newRV( (SV*)statsblk );
+    OUTPUT:
+        RETVAL
