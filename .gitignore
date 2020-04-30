@@ -1,0 +1,8 @@
+blib
+Makefile
+MYMETA.json
+MYMETA.yml
+Nausparse.bs
+Nausparse.c
+Nausparse.o
+pm_to_blib
