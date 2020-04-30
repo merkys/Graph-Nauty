@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Graph::Nauty qw( automorphism_group );
+use Graph::Nauty qw( automorphism_group orbits );
 use Graph::Undirected;
 use Test::More tests => 4;
 

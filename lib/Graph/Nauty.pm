@@ -7,7 +7,7 @@ require Exporter;
 use AutoLoader;
 
 our @ISA = qw(Exporter);
-our @EXPORT_OK = qw( automorphism_group );
+our @EXPORT_OK = qw( automorphism_group orbits );
 
 our $VERSION = '0.01';
 
@@ -30,7 +30,8 @@ sub _nauty_graph
 
     my $n = 0;
     my $vertices = { map { $_ => { index => $n++, vertice => $_ } }
-                     sort { $color_sub->( $a ) cmp $color_sub->( $b ) }
+                     sort { $color_sub->( $a ) cmp $color_sub->( $b ) ||
+                            $a cmp $b}
                          $graph->vertices };
 
     my @breaks;
@@ -40,6 +41,7 @@ sub _nauty_graph
                       $vertices->{$b}{index} } keys %$vertices) {
         push @{$nauty_graph->{d}}, scalar $graph->neighbours( $v );
         push @{$nauty_graph->{v}}, scalar @{$nauty_graph->{e}};
+        push @{$nauty_graph->{original}}, $v;
         for ($graph->neighbours( $v )) {
             push @{$nauty_graph->{e}}, $vertices->{$_}{index};
         }
@@ -61,6 +63,23 @@ sub automorphism_group
                                 1,
                                 undef );
     return $statsblk->{grpsize1};
+}
+
+sub orbits
+{
+    my( $graph, $color_sub ) = @_;
+
+    my( $nauty_graph, $labels, $breaks, $orbits ) =
+        _nauty_graph( $graph, $color_sub );
+    my $statsblk = sparsenauty( $nauty_graph, $labels, $breaks, $orbits,
+                                1,
+                                undef );
+    my @orbits;
+    for my $i (0..$#{$statsblk->{orbits}}) {
+        push @{$orbits[$statsblk->{orbits}[$i]]},
+             $nauty_graph->{original}[$i];
+    }
+    return grep { defined } @orbits;
 }
 
 # Autoload methods go after =cut, and are processed by the autosplit program.
