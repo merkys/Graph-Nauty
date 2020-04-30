@@ -1,7 +1,8 @@
 Changes
 Makefile.PL
 MANIFEST
-Nausparse.xs
+Nauty.xs
 README
-t/Nausparse.t
+t/01_use.t
+t/02_pentagon.t
 lib/Graph/Nauty.pm

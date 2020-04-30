@@ -105,20 +105,17 @@ __END__
 
 =head1 NAME
 
-Nausparse - Perl extension for blah blah blah
+Graph::Nauty - Perl extension for blah blah blah
 
 =head1 SYNOPSIS
 
-  use Nausparse;
-  blah blah blah
+  use Graph::Nauty;
 
 =head1 DESCRIPTION
 
-Stub documentation for Nausparse, created by h2xs. It looks like the
+Stub documentation for Graph::Nauty, created by h2xs. It looks like the
 author of the extension was negligent enough to leave the stub
 unedited.
-
-Blah blah blah.
 
 =head2 EXPORT
 
