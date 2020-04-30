@@ -9,20 +9,14 @@
 #undef doref
 #include <nauty/nausparse.h>
 
-typedef struct optionblk   Options;
-typedef struct statsblk    Stats;
-
 MODULE = Nausparse		PACKAGE = Nausparse
 
 void
-sparsenauty(sg, lab, ptn, orbits, options, stats, sg2)
-    sparsegraph *sg
-    int *lab
-    int *ptn
-    int *orbits
-    Options *options
-    Stats *stats
-    sparsegraph *sg2
-
-MODULE = Nausparse		PACKAGE = OptionsPtr
-MODULE = Nausparse		PACKAGE = StatsPtr
+sparsenauty(sg, lab, ptn, orbits, options, OUT stats, sg2)
+    sparsegraph &sg
+    int * lab
+    int * ptn
+    int * orbits
+    optionblk &options
+    statsblk stats = NO_INIT
+    sparsegraph &sg2
