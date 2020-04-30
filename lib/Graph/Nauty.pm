@@ -45,7 +45,7 @@ sub automorphism_group
         for ($graph->neighbours( $v )) {
             push @{$nauty_graph->{e}}, $vertices->{$_}{index};
         }
-        if( $prev ) {
+        if( defined $prev ) {
             push @breaks, int($color_sub->( $prev ) eq $color_sub->( $v ));
         }
         $prev = $v;
