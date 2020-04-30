@@ -147,7 +147,7 @@ If you have a web site set up for your module, mention it here.
 
 =head1 AUTHOR
 
-Andrius Merkys, E<lt>andrius@E<gt>
+Andrius Merkys, E<lt>merkys@Ecpan.org<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
