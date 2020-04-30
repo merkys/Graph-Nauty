@@ -6,7 +6,6 @@ int       * SPECIAL_INT
 
 INPUT
 SPECIAL_INT
-    printf( \"SPECIAL_INT init\\n\" );
     $var = malloc( sizeof(int) * (av_top_index((AV*)SvRV($arg))+1) );
     ssize_t ix_$var;
     for( ix_$var = 0; ix_$var < av_top_index((AV*)SvRV($arg))+1; ix_$var++ ) {
@@ -14,7 +13,6 @@ SPECIAL_INT
     }
 T_PTROBJ_SPARSEGRAPH
     STMT_START {
-        printf( \"sparse init\\n\" );
         if( SvOK($arg) ) {
             int vertices_$var = (int)SvIV(*hv_fetch((HV*)SvRV($arg), \"nv\", 2, 0));
             int edges_$var    = (size_t)SvIV(*hv_fetch((HV*)SvRV($arg), \"nde\", 3, 0));
@@ -39,14 +37,9 @@ T_PTROBJ_SPARSEGRAPH
             for( ix_$var = 0; ix_$var < $var.elen; ix_$var++ ) {
                 $var.e[ix_$var] = (int)SvIV(*av_fetch((AV*)SvRV(e), ix_$var, 0));
             }
-            printf( \"sparse converted\\n\" );
-        } else {
-            printf( \"sparse undef\\n\" );
         }
     } STMT_END
 T_PTROBJ_OPTIONBLK
-    printf( \"T_PTROBJ_OPTIONBLK requested\\n\" );
     DEFAULTOPTIONS_SPARSEGRAPH( new_$var );
     $var = new_$var;
     $var.defaultptn  = FALSE;
-    printf( \"T_PTROBJ_OPTIONBLK converted\\n\" );
