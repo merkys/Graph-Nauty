@@ -29,11 +29,14 @@ sub automorphism_group
         nde => scalar $graph->edges * 2, # as undirected
         e   => [],
     };
+
     my $n = 0;
     my $vertices = { map { $_ => { index => $n++, vertice => $_ } }
                      sort { $color_sub->( $a ) cmp $color_sub->( $b ) }
                          $graph->vertices };
 
+    my @breaks;
+    my $prev;
     for my $v (map { $vertices->{$_}{vertice} }
                sort { $vertices->{$a}{index} <=>
                       $vertices->{$b}{index} } keys %$vertices) {
@@ -42,11 +45,16 @@ sub automorphism_group
         for ($graph->neighbours( $v )) {
             push @{$nauty_graph->{e}}, $vertices->{$_}{index};
         }
+        if( $prev ) {
+            push @breaks, $color_sub->( $prev ) eq $color_sub->( $v );
+        }
+        $prev = $v;
     }
+    push @breaks, 0;
 
     my $statsblk = sparsenauty( $nauty_graph,
                                 [ 0..$n-1 ],
-                                [ ( 1 ) x $n ],
+                                \@breaks,
                                 [ ( 0 ) x $n ],
                                 1,
                                 undef );
