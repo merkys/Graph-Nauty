@@ -9,7 +9,7 @@
 #undef doref
 #include <nauty/nausparse.h>
 
-MODULE = Nausparse		PACKAGE = Nausparse
+MODULE = Graph::Nauty		PACKAGE = Graph::Nauty
 
 SV *
 sparsenauty(sg, lab, ptn, orbits, options, sg2)

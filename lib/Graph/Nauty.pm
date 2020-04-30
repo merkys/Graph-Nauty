@@ -1,4 +1,4 @@
-package Nausparse;
+package Graph::Nauty;
 
 use 5.026001;
 use strict;
@@ -61,7 +61,7 @@ sub AUTOLOAD {
 }
 
 require XSLoader;
-XSLoader::load('Nausparse', $VERSION);
+XSLoader::load('Graph::Nauty', $VERSION);
 
 # Preloaded methods go here.
 

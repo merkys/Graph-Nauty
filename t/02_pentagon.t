@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Nausparse;
+use Graph::Nauty;
 use Test::More tests => 4;
 
 my $n = 5;
@@ -18,12 +18,12 @@ my $sparse = {
     e   => \@e,
 };
 
-my $statsblk = Nausparse::sparsenauty( $sparse,
-                                       [ 0..$n-1 ],
-                                       [ ( 1 ) x $n ],
-                                       [ ( 0 ) x $n ],
-                                       1,
-                                       undef );
+my $statsblk = Graph::Nauty::sparsenauty( $sparse,
+                                          [ 0..$n-1 ],
+                                          [ ( 1 ) x $n ],
+                                          [ ( 0 ) x $n ],
+                                          1,
+                                          undef );
 ok( $statsblk->{errstatus} == 0 );
 ok( $statsblk->{grpsize1}  == 10 );
 ok( $statsblk->{grpsize2}  == 0 );

@@ -2,7 +2,7 @@ blib
 Makefile
 MYMETA.json
 MYMETA.yml
-Nausparse.bs
-Nausparse.c
-Nausparse.o
+Nauty.bs
+Nauty.c
+Nauty.o
 pm_to_blib

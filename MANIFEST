@@ -4,4 +4,4 @@ MANIFEST
 Nausparse.xs
 README
 t/Nausparse.t
-lib/Nausparse.pm
+lib/Graph/Nauty.pm
