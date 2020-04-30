@@ -46,7 +46,7 @@ sub automorphism_group
             push @{$nauty_graph->{e}}, $vertices->{$_}{index};
         }
         if( $prev ) {
-            push @breaks, $color_sub->( $prev ) eq $color_sub->( $v );
+            push @breaks, int($color_sub->( $prev ) eq $color_sub->( $v ));
         }
         $prev = $v;
     }

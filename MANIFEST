@@ -5,4 +5,5 @@ Nauty.xs
 README
 t/01_use.t
 t/02_pentagon.t
+t/03_pentagon.t
 lib/Graph/Nauty.pm
