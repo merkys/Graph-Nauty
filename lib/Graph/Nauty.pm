@@ -16,13 +16,11 @@ XSLoader::load('Graph::Nauty', $VERSION);
 
 # Preloaded methods go here.
 
-sub automorphism_group
+sub _nauty_graph
 {
     my( $graph, $color_sub ) = @_;
 
-    if( !$color_sub ) {
-        $color_sub = sub { "$_[0]" };
-    }
+    $color_sub = sub { "$_[0]" } unless $color_sub;
 
     my $nauty_graph = {
         nv  => scalar $graph->vertices,
@@ -52,10 +50,14 @@ sub automorphism_group
     }
     push @breaks, 0;
 
-    my $statsblk = sparsenauty( $nauty_graph,
-                                [ 0..$n-1 ],
-                                \@breaks,
-                                [ ( 0 ) x $n ],
+    return ( $nauty_graph, [ 0..$n-1 ], \@breaks, [ ( 0 ) x $n ] );
+}
+
+sub automorphism_group
+{
+    my( $graph, $color_sub ) = @_;
+
+    my $statsblk = sparsenauty( _nauty_graph( $graph, $color_sub ),
                                 1,
                                 undef );
     return $statsblk->{grpsize1};
