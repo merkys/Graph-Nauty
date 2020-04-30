@@ -1,64 +1,15 @@
 package Graph::Nauty;
 
-use 5.026001;
 use strict;
 use warnings;
-use Carp;
 
 require Exporter;
 use AutoLoader;
 
 our @ISA = qw(Exporter);
+our @EXPORT_OK = qw( automorphism_group );
 
-# Items to export into callers namespace by default. Note: do not export
-# names by default without a very good reason. Use EXPORT_OK instead.
-# Do not simply export all your public functions/methods/constants.
-
-# This allows declaration	use Nausparse ':all';
-# If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
-# will save memory.
-our %EXPORT_TAGS = ( 'all' => [ qw(
-	SG_MINWEIGHT
-	SG_WEIGHT
-	SWG_DECL
-	SWG_FREE
-	SWG_INIT
-) ] );
-
-our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
-
-our @EXPORT = qw(
-	SG_MINWEIGHT
-	SG_WEIGHT
-	SWG_DECL
-	SWG_FREE
-	SWG_INIT
-);
-
-our $VERSION = '0.01-dev';
-
-sub AUTOLOAD {
-    # This AUTOLOAD is used to 'autoload' constants from the constant()
-    # XS function.
-
-    my $constname;
-    our $AUTOLOAD;
-    ($constname = $AUTOLOAD) =~ s/.*:://;
-    croak "&Nausparse::constant not defined" if $constname eq 'constant';
-    my ($error, $val) = constant($constname);
-    if ($error) { croak $error; }
-    {
-	no strict 'refs';
-	# Fixed between 5.005_53 and 5.005_61
-#XXX	if ($] >= 5.00561) {
-#XXX	    *$AUTOLOAD = sub () { $val };
-#XXX	}
-#XXX	else {
-	    *$AUTOLOAD = sub { $val };
-#XXX	}
-    }
-    goto &$AUTOLOAD;
-}
+our $VERSION = '0.01';
 
 require XSLoader;
 XSLoader::load('Graph::Nauty', $VERSION);
