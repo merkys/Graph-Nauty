@@ -1,13 +1,12 @@
+#include <nauty/nausparse.h>
+/* doref is defined both in perl.h and nauty/nausparse.h.
+   As it is not used, it is undefined to avoid the clash. */
+#undef doref
+
 #define PERL_NO_GET_CONTEXT
 #include "EXTERN.h"
 #include "perl.h"
 #include "XSUB.h"
-
-/* doref is defined both in perl.h and nauty/nausparse.h.
-   Undefining it is a quick-and-dirty fix, as something
-   might be broken... */
-#undef doref
-#include <nauty/nausparse.h>
 
 MODULE = Graph::Nauty		PACKAGE = Graph::Nauty
 
