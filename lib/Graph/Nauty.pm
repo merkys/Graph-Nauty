@@ -9,7 +9,7 @@ use AutoLoader;
 our @ISA = qw(Exporter);
 our @EXPORT_OK = qw( automorphism_group orbits );
 
-our $VERSION = '0.01';
+# VERSION
 
 require XSLoader;
 XSLoader::load('Graph::Nauty', $VERSION);
