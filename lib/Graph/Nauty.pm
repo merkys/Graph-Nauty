@@ -4,8 +4,6 @@ use strict;
 use warnings;
 
 require Exporter;
-use AutoLoader;
-
 our @ISA = qw(Exporter);
 our @EXPORT_OK = qw( automorphism_group_size orbits );
 
