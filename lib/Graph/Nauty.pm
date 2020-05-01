@@ -12,8 +12,6 @@ our @EXPORT_OK = qw( automorphism_group_size orbits );
 require XSLoader;
 XSLoader::load('Graph::Nauty', $VERSION);
 
-# Preloaded methods go here.
-
 sub _nauty_graph
 {
     my( $graph, $color_sub ) = @_;
@@ -80,11 +78,8 @@ sub orbits
     return grep { defined } @orbits;
 }
 
-# Autoload methods go after =cut, and are processed by the autosplit program.
-
 1;
 __END__
-# Below is stub documentation for your module. You'd better edit it!
 
 =head1 NAME
 
