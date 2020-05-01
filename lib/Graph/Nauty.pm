@@ -90,7 +90,7 @@ __END__
 
 =head1 NAME
 
-Graph::Nauty - Perl extension for blah blah blah
+Graph::Nauty - Perl bindings for nauty
 
 =head1 SYNOPSIS
 
@@ -105,16 +105,6 @@ unedited.
 =head2 EXPORT
 
 None by default.
-
-=head2 Exportable constants
-
-  SG_MINWEIGHT
-  SG_WEIGHT
-  SWG_DECL
-  SWG_FREE
-  SWG_INIT
-
-
 
 =head1 SEE ALSO
 
@@ -138,6 +128,5 @@ Copyright (C) 2020 by Andrius Merkys
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.26.1 or,
 at your option, any later version of Perl 5 you may have available.
-
 
 =cut
