@@ -87,32 +87,33 @@ Graph::Nauty - Perl bindings for nauty
 
 =head1 SYNOPSIS
 
-  use Graph::Nauty;
+  use Graph::Nauty qw( automorphism_group_size orbits );
+  use Graph::Undirected;
+
+  my $g = Graph::Undirected->new;
+
+  # Create the graph here
+
+  # Get the size of the automorphism group:
+  print automorphism_group_size( $g );
+
+  # Get automorphism group orbits:
+  print orbits( $g );
 
 =head1 DESCRIPTION
 
-Stub documentation for Graph::Nauty, created by h2xs. It looks like the
-author of the extension was negligent enough to leave the stub
-unedited.
-
-=head2 EXPORT
-
-None by default.
+Graph::Nauty provides an interface to nauty, a set of procedures for
+determining the automorphismgroup of a vertex-coloured graph, and for
+testing graphs for isomorphism.
 
 =head1 SEE ALSO
 
-Mention other useful documentation such as the documentation of
-related modules or operating system documentation (such as man pages
-in UNIX), or any relevant external documentation such as RFCs or
-standards.
-
-If you have a mailing list set up for your module, mention it here.
-
-If you have a web site set up for your module, mention it here.
+For the description of nauty refer to
+E<lt>http://pallini.di.uniroma1.itE<gt>.
 
 =head1 AUTHOR
 
-Andrius Merkys, E<lt>merkys@Ecpan.org<gt>
+Andrius Merkys, E<lt>merkys@cpan.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
