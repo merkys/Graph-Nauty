@@ -1,5 +1,5 @@
 #include <nauty/nausparse.h>
-/* doref is defined both in perl.h and nauty/nausparse.h.
+/* doref is defined both in perl.h and nauty.h.
    As it is not used, it is undefined to avoid the clash. */
 #undef doref
 
