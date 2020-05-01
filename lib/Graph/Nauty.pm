@@ -7,7 +7,7 @@ require Exporter;
 use AutoLoader;
 
 our @ISA = qw(Exporter);
-our @EXPORT_OK = qw( automorphism_group orbits );
+our @EXPORT_OK = qw( automorphism_group_size orbits );
 
 # VERSION
 
@@ -55,7 +55,7 @@ sub _nauty_graph
     return ( $nauty_graph, [ 0..$n-1 ], \@breaks, [ ( 0 ) x $n ] );
 }
 
-sub automorphism_group
+sub automorphism_group_size
 {
     my( $graph, $color_sub ) = @_;
 

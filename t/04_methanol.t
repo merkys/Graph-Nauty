@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Graph::Nauty qw( automorphism_group orbits );
+use Graph::Nauty qw( automorphism_group_size orbits );
 use Graph::Undirected;
 use Test::More tests => 2;
 
@@ -21,7 +21,7 @@ $g->add_edge( $atoms{C}, $atoms{HB} );
 $g->add_edge( $atoms{C}, $atoms{HC} );
 $g->add_edge( $atoms{O}, $atoms{HO} );
 
-is( automorphism_group( $g, sub { return $_[0]->{type} } ), 6 );
+is( automorphism_group_size( $g, sub { return $_[0]->{type} } ), 6 );
 
 my $orbits = join '',
              map { '[' . join( ',', map { $_->{name} } @$_ ) . ']' }
