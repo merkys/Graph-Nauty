@@ -62,7 +62,7 @@ sub automorphism_group
     my $statsblk = sparsenauty( _nauty_graph( $graph, $color_sub ),
                                 1,
                                 undef );
-    return $statsblk->{grpsize1};
+    return $statsblk->{grpsize1} * 10 ** $statsblk->{grpsize2};
 }
 
 sub orbits
