@@ -38,7 +38,8 @@ sub _nauty_graph
         push @{$nauty_graph->{d}}, scalar $graph->neighbours( $v );
         push @{$nauty_graph->{v}}, scalar @{$nauty_graph->{e}};
         push @{$nauty_graph->{original}}, $v;
-        for ($graph->neighbours( $v )) {
+        for (sort { $vertices->{$a}{index} <=> $vertices->{$b}{index} }
+                  $graph->neighbours( $v )) {
             push @{$nauty_graph->{e}}, $vertices->{$_}{index};
         }
         if( defined $prev ) {
