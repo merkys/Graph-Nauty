@@ -4,8 +4,8 @@ use strict;
 use warnings;
 
 require Exporter;
-our @ISA = qw(Exporter);
-our @EXPORT_OK = qw( automorphism_group_size orbits );
+our @ISA = qw( Exporter );
+our @EXPORT_OK = qw( are_isomorphic automorphism_group_size orbits );
 
 # VERSION
 
@@ -76,6 +76,27 @@ sub orbits
              $nauty_graph->{original}[$i];
     }
     return grep { defined } @orbits;
+}
+
+sub are_isomorphic
+{
+    my( $graph1, $graph2, $color_sub ) = @_;
+    return 0 if !$graph1->could_be_isomorphic( $graph2 );
+
+    $color_sub = sub { "$_[0]" } unless $color_sub;
+
+    my @orbits1 = orbits( $graph1, $color_sub );
+    my @orbits2 = orbits( $graph2, $color_sub );
+
+    return 0 if scalar @orbits1 != scalar @orbits2;
+
+    for my $i (0..$#orbits1) {
+        return 0 if scalar @{$orbits1[$i]} != scalar @{$orbits2[$i]};
+        return 0 if $color_sub->( $orbits1[$i]->[0] ) ne
+                    $color_sub->( $orbits2[$i]->[0] );
+    }
+
+    return 1;
 }
 
 1;
