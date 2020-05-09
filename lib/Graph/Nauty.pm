@@ -22,6 +22,8 @@ sub _nauty_graph
         nv  => scalar $graph->vertices,
         nde => scalar $graph->edges * 2, # as undirected
         e   => [],
+        d   => [],
+        v   => [],
     };
 
     my $n = 0;
