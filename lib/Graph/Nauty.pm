@@ -128,7 +128,7 @@ Graph::Nauty - Perl bindings for nauty
 =head1 DESCRIPTION
 
 Graph::Nauty provides an interface to nauty, a set of procedures for
-determining the automorphismgroup of a vertex-coloured graph, and for
+determining the automorphism group of a vertex-coloured graph, and for
 testing graphs for isomorphism.
 
 =head1 SEE ALSO
