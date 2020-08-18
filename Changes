@@ -1,6 +1,7 @@
 0.1.3 unreleased
 
     - Fixed a typo in POD.
+    - Adding ppport.h (GH#1).
 
 0.1.2 2020-08-11
 
