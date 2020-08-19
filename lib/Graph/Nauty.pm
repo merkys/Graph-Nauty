@@ -12,12 +12,47 @@ our @EXPORT_OK = qw( are_isomorphic automorphism_group_size orbits );
 require XSLoader;
 XSLoader::load('Graph::Nauty', $VERSION);
 
+use Graph::Nauty::EdgeNode;
+use Graph::Undirected;
+use Scalar::Util qw(blessed);
+
+sub _cmp
+{
+    my( $a, $b, $sub ) = @_;
+
+    if( blessed $a && $a->isa( Graph::Nauty::EdgeNode:: ) &&
+        blessed $b && $b->isa( Graph::Nauty::EdgeNode:: ) ) {
+        return "$a" cmp "$b";
+    } elsif( blessed $a && $a->isa( Graph::Nauty::EdgeNode:: ) ) {
+        return 1;
+    } elsif( blessed $b && $b->isa( Graph::Nauty::EdgeNode:: ) ) {
+        return -1;
+    } else {
+        return $sub->( $a ) cmp $sub->( $b );
+    }
+}
+
 sub _nauty_graph
 {
     my( $graph, $color_sub, $order_sub ) = @_;
 
     $color_sub = sub { "$_[0]" } unless $color_sub;
     $order_sub = sub { "$_[0]" } unless $order_sub;
+
+    if( grep { $graph->has_edge_attributes( @$_ ) } $graph->edges ) {
+        # colored bonds detected, need to transform the graph
+        my $graph_now = Graph::Undirected->new( vertices => [ $graph->vertices ] );
+        for my $edge ( $graph->edges ) {
+            if( $graph->has_edge_attributes( @$edge ) ) {
+                my $edge_node = Graph::Nauty::EdgeNode->new( $graph->get_edge_attributes( @$edge ) );
+                $graph_now->add_edge( $edge->[0], $edge_node );
+                $graph_now->add_edge( $edge_node, $edge->[1] );
+            } else {
+                $graph_now->add_edge( @$edge );
+            }
+        }
+        $graph = $graph_now;
+    }
 
     my $nauty_graph = {
         nv  => scalar $graph->vertices,
@@ -29,8 +64,8 @@ sub _nauty_graph
 
     my $n = 0;
     my $vertices = { map { $_ => { index => $n++, vertice => $_ } }
-                     sort { $color_sub->( $a ) cmp $color_sub->( $b ) ||
-                            $order_sub->( $a ) cmp $order_sub->( $b ) }
+                     sort { _cmp( $a, $b, $color_sub ) ||
+                            _cmp( $a, $b, $order_sub ) }
                          $graph->vertices };
 
     my @breaks;
@@ -46,7 +81,7 @@ sub _nauty_graph
             push @{$nauty_graph->{e}}, $vertices->{$_}{index};
         }
         if( defined $prev ) {
-            push @breaks, int($color_sub->( $prev ) eq $color_sub->( $v ));
+            push @breaks, int(_cmp( $prev, $v, $color_sub ) == 0);
         }
         $prev = $v;
     }
@@ -76,6 +111,8 @@ sub orbits
                                 undef );
     my @orbits;
     for my $i (0..$#{$statsblk->{orbits}}) {
+        next if blessed $nauty_graph->{original}[$i] &&
+             $nauty_graph->{original}[$i]->isa( Graph::Nauty::EdgeNode:: );
         push @{$orbits[$statsblk->{orbits}[$i]]},
              $nauty_graph->{original}[$i];
     }
