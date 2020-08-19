@@ -168,6 +168,10 @@ Graph::Nauty provides an interface to nauty, a set of procedures for
 determining the automorphism group of a vertex-coloured graph, and for
 testing graphs for isomorphism.
 
+Currently Graph::Nauty only L<Graph::Undirected|Graph::Undirected>,
+that is, it does not handle directed graphs. Both colored vertices and
+edges are accounted for when determining equivalence classes.
+
 =head1 SEE ALSO
 
 For the description of nauty refer to
