@@ -3,6 +3,8 @@ package Graph::Nauty::EdgeNode;
 use strict;
 use warnings;
 
+# VERSION
+
 use Data::Dumper;
 
 $Data::Dumper::Sortkeys = 1;
