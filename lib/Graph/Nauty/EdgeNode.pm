@@ -7,11 +7,11 @@ use Data::Dumper;
 
 $Data::Dumper::Sortkeys = 1;
 
-use overload '""' => sub { return Dumper $_[0]->{bond} };
+use overload '""' => sub { return Dumper $_[0]->{attributes} };
 
 sub new {
-    my( $class, $bond ) = @_;
-    return bless { bond => $bond }, $class;
+    my( $class, $attributes ) = @_;
+    return bless { attributes => $attributes }, $class;
 };
 
 1;
