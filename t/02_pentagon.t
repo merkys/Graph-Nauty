@@ -24,7 +24,7 @@ my $statsblk = Graph::Nauty::sparsenauty( $sparse,
                                           [ ( 0 ) x $n ],
                                           1,
                                           undef );
-ok( $statsblk->{errstatus} == 0 );
-ok( $statsblk->{grpsize1}  == 10 );
-ok( $statsblk->{grpsize2}  == 0 );
-ok( $statsblk->{numorbits} == 1 );
+is( $statsblk->{errstatus}, 0 );
+is( $statsblk->{grpsize1}, 10 );
+is( $statsblk->{grpsize2}, 0 );
+is( $statsblk->{numorbits}, 1 );
