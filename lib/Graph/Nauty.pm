@@ -95,7 +95,7 @@ sub automorphism_group_size
     my( $graph, $color_sub ) = @_;
 
     my $statsblk = sparsenauty( _nauty_graph( $graph, $color_sub ),
-                                1,
+                                undef,
                                 undef );
     return $statsblk->{grpsize1} * 10 ** $statsblk->{grpsize2};
 }
@@ -107,7 +107,7 @@ sub orbits
     my( $nauty_graph, $labels, $breaks, $orbits ) =
         _nauty_graph( $graph, $color_sub, $order_sub );
     my $statsblk = sparsenauty( $nauty_graph, $labels, $breaks, $orbits,
-                                1,
+                                undef,
                                 undef );
     my @orbits;
     for my $i (0..$#{$statsblk->{orbits}}) {

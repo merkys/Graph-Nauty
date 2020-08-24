@@ -22,7 +22,7 @@ my $statsblk = Graph::Nauty::sparsenauty( $sparse,
                                           [ 0..$n-1 ],
                                           [ ( 1 ) x $n ],
                                           [ ( 0 ) x $n ],
-                                          1,
+                                          undef,
                                           undef );
 is( $statsblk->{errstatus}, 0 );
 is( $statsblk->{grpsize1}, 10 );
