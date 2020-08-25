@@ -170,18 +170,22 @@ Graph::Nauty - Perl bindings for nauty
 
 =head1 SYNOPSIS
 
-  use Graph::Nauty qw( automorphism_group_size orbits );
+  use Graph::Nauty qw( are_isomorphic automorphism_group_size orbits );
   use Graph::Undirected;
 
-  my $g = Graph::Undirected->new;
+  my $A = Graph::Undirected->new;
+  my $B = Graph::Undirected->new;
 
-  # Create the graph here
+  # Create graphs here
 
   # Get the size of the automorphism group:
-  print automorphism_group_size( $g );
+  print automorphism_group_size( $A );
 
   # Get automorphism group orbits:
-  print orbits( $g );
+  print orbits( $A );
+
+  # Check whether two graphs are isomorphs:
+  print are_isomorphic( $A, $B );
 
 =head1 DESCRIPTION
 
