@@ -36,3 +36,8 @@ sparsenauty(sg, lab, ptn, orbits, options, sg2)
         RETVAL = newRV( (SV*)statsblk );
     OUTPUT:
         RETVAL
+
+bool
+aresame_sg(sg1, sg2)
+        sparsegraph &sg1
+        sparsegraph &sg2
