@@ -198,14 +198,20 @@ L<Graph::Undirected|Graph::Undirected>, that is, it does not handle
 directed graphs. Both colored vertices and edges are accounted for when
 determining equivalence classes.
 
+=head1 INSTALLING
+
+Building and installing Graph::Nauty from source requires shared library
+and C headers for nauty, which can be downloaded from
+L<https://users.cecs.anu.edu.au/~bdm/nauty/>. Both the library and C
+headers have to be installed to locations visible by Perl's C compiler.
+
 =head1 SEE ALSO
 
-For the description of nauty refer to
-E<lt>http://pallini.di.uniroma1.itE<gt>.
+For the description of nauty refer to L<http://pallini.di.uniroma1.it>.
 
 =head1 AUTHOR
 
-Andrius Merkys, E<lt>merkys@cpan.orgE<gt>
+Andrius Merkys, L<mailto:merkys@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
