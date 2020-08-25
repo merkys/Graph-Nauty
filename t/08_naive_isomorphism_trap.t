@@ -1,8 +1,12 @@
 use strict;
 use warnings;
-use Graph::Nauty qw( are_isomorphic orbits );
+use Graph::Nauty qw(
+    are_isomorphic
+    orbits
+    orbits_are_same
+);
 use Graph::Undirected;
-use Test::More tests => 2;
+use Test::More tests => 3;
 
 my @v1 = ( { index => 0, type => 0 },
            { index => 1, type => 1 },
@@ -32,4 +36,5 @@ isnt( join( ',', map { scalar @$_ } orbits( $g1,
       join( ',', map { scalar @$_ } orbits( $g2,
                                             sub { return $_[0]->{type} },
                                             sub { return $_[0]->{index} } ) ) );
-ok( are_isomorphic( $g1, $g2, sub { return $_[0]->{type} } ) );
+ok( are_isomorphic(  $g1, $g2, sub { return $_[0]->{type} } ) );
+ok( orbits_are_same( $g1, $g2, sub { return $_[0]->{type} } ) );
