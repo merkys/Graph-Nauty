@@ -30,11 +30,11 @@ $g2->add_edge( $v2[0], $v2[3] );
 $g2->add_edge( $v2[2], $v2[1] );
 $g2->add_edge( $v2[2], $v2[3] );
 
-isnt( join( ',', map { scalar @$_ } orbits( $g1,
-                                            sub { return $_[0]->{type} },
-                                            sub { return $_[0]->{index} } ) ),
-      join( ',', map { scalar @$_ } orbits( $g2,
-                                            sub { return $_[0]->{type} },
-                                            sub { return $_[0]->{index} } ) ) );
+is( join( ',', map { scalar @$_ } orbits( $g1,
+                                          sub { return $_[0]->{type} },
+                                          sub { return $_[0]->{index} } ) ),
+    join( ',', map { scalar @$_ } orbits( $g2,
+                                          sub { return $_[0]->{type} },
+                                          sub { return $_[0]->{index} } ) ) );
 ok( are_isomorphic(  $g1, $g2, sub { return $_[0]->{type} } ) );
 ok( orbits_are_same( $g1, $g2, sub { return $_[0]->{type} } ) );

@@ -41,6 +41,7 @@ sparsenauty(sg, lab, ptn, orbits, options)
             HV *canon = newHV();
             hv_store( canon, "nde", 3, newSViv( sg2.nde ), 0 );
             hv_store( canon, "nv",  2, newSViv( sg2.nv ),  0 );
+
             AV *v = newAV();
             AV *d = newAV();
             AV *e = newAV();
@@ -56,7 +57,15 @@ sparsenauty(sg, lab, ptn, orbits, options)
             hv_store( canon, "v", 1, newRV( (SV*)v ), 0 );
             hv_store( canon, "d", 1, newRV( (SV*)d ), 0 );
             hv_store( canon, "e", 1, newRV( (SV*)e ), 0 );
+
             hv_store( statsblk, "canon", 5, newRV( (SV*)canon ), 0 );
+
+            AV *lab_return = newAV();
+            for( i = 0; i < sg.nv; i++ ) {
+                av_store( lab_return, i, newSViv( lab[i] ) );
+            }
+
+            hv_store( statsblk, "lab", 3, newRV( (SV*)lab_return ), 0 );
         }
         RETVAL = newRV( (SV*)statsblk );
     OUTPUT:

@@ -108,18 +108,25 @@ sub orbits
 {
     my( $graph, $color_sub, $order_sub ) = @_;
 
-    my( $nauty_graph, $labels, $breaks, $orbits ) =
+    my( $nauty_graph, $labels, $breaks, $orbits_old ) =
         _nauty_graph( $graph, $color_sub, $order_sub );
-    my $statsblk = sparsenauty( $nauty_graph, $labels, $breaks, $orbits,
-                                undef );
-    my @orbits;
-    for my $i (0..$#{$statsblk->{orbits}}) {
+    my $statsblk = sparsenauty( $nauty_graph, $labels, $breaks, $orbits_old,
+                                { getcanon => 1 } );
+
+    my $orbits = [];
+    for my $i (@{$statsblk->{lab}}) {
         next if blessed $nauty_graph->{original}[$i] &&
              $nauty_graph->{original}[$i]->isa( Graph::Nauty::EdgeNode:: );
-        push @{$orbits[$statsblk->{orbits}[$i]]},
-             $nauty_graph->{original}[$i];
+        if( !@$orbits || $statsblk->{orbits}[$i] !=
+            $statsblk->{orbits}[$orbits->[-1][0]] ) {
+            push @$orbits, [ $i ];
+        } else {
+            push @{$orbits->[-1]}, $i;
+        }
     }
-    return grep { defined } @orbits;
+
+    return map { [ map { $nauty_graph->{original}[$_] } @$_ ] }
+               @$orbits;
 }
 
 sub are_isomorphic
