@@ -5,7 +5,12 @@ use warnings;
 
 require Exporter;
 our @ISA = qw( Exporter );
-our @EXPORT_OK = qw( are_isomorphic automorphism_group_size orbits );
+our @EXPORT_OK = qw(
+    are_isomorphic
+    automorphism_group_size
+    orbits
+    orbits_are_same
+);
 
 # VERSION
 
@@ -95,7 +100,6 @@ sub automorphism_group_size
     my( $graph, $color_sub ) = @_;
 
     my $statsblk = sparsenauty( _nauty_graph( $graph, $color_sub ),
-                                undef,
                                 undef );
     return $statsblk->{grpsize1} * 10 ** $statsblk->{grpsize2};
 }
@@ -107,7 +111,6 @@ sub orbits
     my( $nauty_graph, $labels, $breaks, $orbits ) =
         _nauty_graph( $graph, $color_sub, $order_sub );
     my $statsblk = sparsenauty( $nauty_graph, $labels, $breaks, $orbits,
-                                undef,
                                 undef );
     my @orbits;
     for my $i (0..$#{$statsblk->{orbits}}) {
@@ -122,9 +125,20 @@ sub orbits
 sub are_isomorphic
 {
     my( $graph1, $graph2, $color_sub ) = @_;
-    return 0 if !$graph1->could_be_isomorphic( $graph2 );
 
-    $color_sub = sub { "$_[0]" } unless $color_sub;
+    my @nauty_graph1 = _nauty_graph( $graph1, $color_sub );
+    my @nauty_graph2 = _nauty_graph( $graph2, $color_sub );
+
+    my $statsblk1 = sparsenauty( @nauty_graph1, { getcanon => 1 } );
+    my $statsblk2 = sparsenauty( @nauty_graph2, { getcanon => 1 } );
+
+    return aresame_sg( $statsblk1->{canon}, $statsblk2->{canon} );
+}
+
+sub orbits_are_same
+{
+    my( $graph1, $graph2, $color_sub ) = @_;
+    return 0 if !$graph1->could_be_isomorphic( $graph2 );
 
     my @orbits1 = orbits( $graph1, $color_sub );
     my @orbits2 = orbits( $graph2, $color_sub );

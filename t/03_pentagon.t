@@ -1,8 +1,12 @@
 use strict;
 use warnings;
-use Graph::Nauty qw( are_isomorphic automorphism_group_size );
+use Graph::Nauty qw(
+    are_isomorphic
+    automorphism_group_size
+    orbits_are_same
+);
 use Graph::Undirected;
-use Test::More tests => 6;
+use Test::More tests => 7;
 
 my $g1 = Graph::Undirected->new;
 my $g2 = Graph::Undirected->new;
@@ -18,5 +22,6 @@ is( automorphism_group_size( $g1, sub { return 0 } ), 10 );
 is( automorphism_group_size( $g1, sub { return $_[0] < 2 } ), 2 );
 is( automorphism_group_size( $g1, sub { return $_[0] < 2 ? $_[0] : 2 } ), 1 );
 
+ok( !orbits_are_same( $g1, $g2 ) );
+ok( !orbits_are_same( $g1, $g2, sub { return 0 } ) );
 ok( !are_isomorphic( $g1, $g2 ) );
-ok( !are_isomorphic( $g1, $g2, sub { return 0 } ) );
