@@ -92,7 +92,7 @@ sub _nauty_graph
     }
     push @breaks, 0;
 
-    return ( $nauty_graph, [ 0..$n-1 ], \@breaks, [ ( 0 ) x $n ] );
+    return ( $nauty_graph, [ 0..$n-1 ], \@breaks );
 }
 
 sub automorphism_group_size
@@ -108,9 +108,9 @@ sub orbits
 {
     my( $graph, $color_sub, $order_sub ) = @_;
 
-    my( $nauty_graph, $labels, $breaks, $orbits_old ) =
+    my( $nauty_graph, $labels, $breaks ) =
         _nauty_graph( $graph, $color_sub, $order_sub );
-    my $statsblk = sparsenauty( $nauty_graph, $labels, $breaks, $orbits_old,
+    my $statsblk = sparsenauty( $nauty_graph, $labels, $breaks,
                                 { getcanon => 1 } );
 
     my $orbits = [];

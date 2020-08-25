@@ -11,11 +11,11 @@
 MODULE = Graph::Nauty		PACKAGE = Graph::Nauty
 
 SV *
-sparsenauty(sg, lab, ptn, orbits, options)
+sparsenauty(sg, lab, ptn, options)
         sparsegraph &sg
         int * lab
         int * ptn
-        int * orbits
+        int * orbits = NO_INIT
         optionblk &options
         statsblk &stats = NO_INIT
         sparsegraph &sg2 = NO_INIT
@@ -24,6 +24,7 @@ sparsenauty(sg, lab, ptn, orbits, options)
             SG_INIT( sg2 );
             SG_ALLOC( sg2, sg.nv, sg.nde, "malloc" );
         }
+        orbits = malloc( sizeof(int) * sg.nv );
         sparsenauty(&sg, lab, ptn, orbits, &options, &stats, &sg2);
         HV *statsblk = newHV();
         hv_store( statsblk, "errstatus",      9, newSViv( stats.errstatus ),     0 );
