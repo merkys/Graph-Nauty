@@ -1,4 +1,4 @@
-0.3.1 unreleased
+0.3.1 2020-08-28
 
     - Added comparison of corresponding vertices to are_isomorphic(), as
       only the graph topology was taken into consideration previously.
