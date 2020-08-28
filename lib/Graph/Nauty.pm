@@ -137,6 +137,8 @@ sub are_isomorphic
     my @nauty_graph1 = _nauty_graph( $graph1, $color_sub );
     my @nauty_graph2 = _nauty_graph( $graph2, $color_sub );
 
+    return 0 if $nauty_graph1[0]->{nv} != $nauty_graph2[0]->{nv};
+
     my $statsblk1 = sparsenauty( @nauty_graph1, { getcanon => 1 } );
     my $statsblk2 = sparsenauty( @nauty_graph2, { getcanon => 1 } );
 

@@ -4,7 +4,7 @@ use Graph::Nauty qw(
     are_isomorphic
 );
 use Graph::Undirected;
-use Test::More tests => 3;
+use Test::More tests => 4;
 
 my @vertices = map { { name => $_ } } 0..3;
 
@@ -29,4 +29,5 @@ $D->set_edge_attribute( $vertices[0], $vertices[1], 'color', 'blue' );
 
 ok( !are_isomorphic( $A, $B, sub { return $_[0]->{name} } ) );
 ok( !are_isomorphic( $A, $C, sub { return $_[0]->{name} } ) );
+ok( !are_isomorphic( $C, $A, sub { return $_[0]->{name} } ) );
 ok( !are_isomorphic( $C, $D, sub { return $_[0]->{name} } ) );
