@@ -17,7 +17,7 @@ our @EXPORT_OK = qw(
 require XSLoader;
 XSLoader::load('Graph::Nauty', $VERSION);
 
-use Graph::Nauty::EdgeNode;
+use Graph::Nauty::EdgeVertex;
 use Graph::Undirected;
 use Scalar::Util qw(blessed);
 
@@ -25,12 +25,12 @@ sub _cmp
 {
     my( $a, $b, $sub ) = @_;
 
-    if( blessed $a && $a->isa( Graph::Nauty::EdgeNode:: ) &&
-        blessed $b && $b->isa( Graph::Nauty::EdgeNode:: ) ) {
+    if( blessed $a && $a->isa( Graph::Nauty::EdgeVertex:: ) &&
+        blessed $b && $b->isa( Graph::Nauty::EdgeVertex:: ) ) {
         return "$a" cmp "$b";
-    } elsif( blessed $a && $a->isa( Graph::Nauty::EdgeNode:: ) ) {
+    } elsif( blessed $a && $a->isa( Graph::Nauty::EdgeVertex:: ) ) {
         return 1;
-    } elsif( blessed $b && $b->isa( Graph::Nauty::EdgeNode:: ) ) {
+    } elsif( blessed $b && $b->isa( Graph::Nauty::EdgeVertex:: ) ) {
         return -1;
     } else {
         return $sub->( $a ) cmp $sub->( $b );
@@ -49,7 +49,7 @@ sub _nauty_graph
         my $graph_now = Graph::Undirected->new( vertices => [ $graph->vertices ] );
         for my $edge ( $graph->edges ) {
             if( $graph->has_edge_attributes( @$edge ) ) {
-                my $edge_node = Graph::Nauty::EdgeNode->new( $graph->get_edge_attributes( @$edge ) );
+                my $edge_node = Graph::Nauty::EdgeVertex->new( $graph->get_edge_attributes( @$edge ) );
                 $graph_now->add_edge( $edge->[0], $edge_node );
                 $graph_now->add_edge( $edge_node, $edge->[1] );
             } else {
@@ -116,7 +116,7 @@ sub orbits
     my $orbits = [];
     for my $i (@{$statsblk->{lab}}) {
         next if blessed $nauty_graph->{original}[$i] &&
-             $nauty_graph->{original}[$i]->isa( Graph::Nauty::EdgeNode:: );
+             $nauty_graph->{original}[$i]->isa( Graph::Nauty::EdgeVertex:: );
         if( !@$orbits || $statsblk->{orbits}[$i] !=
             $statsblk->{orbits}[$orbits->[-1][0]] ) {
             push @$orbits, [ $i ];

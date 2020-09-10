@@ -1,4 +1,4 @@
-package Graph::Nauty::EdgeNode;
+package Graph::Nauty::EdgeVertex;
 
 use strict;
 use warnings;
