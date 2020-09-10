@@ -1,3 +1,7 @@
+0.3.2 unreleased
+
+    - Extended POD documentation to cover vertex and edge colors.
+
 0.3.1 2020-08-28
 
     - Added comparison of corresponding vertices to are_isomorphic(), as

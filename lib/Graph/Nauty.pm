@@ -209,6 +209,25 @@ L<Graph::Undirected|Graph::Undirected>, that is, it does not handle
 directed graphs. Both colored vertices and edges are accounted for when
 determining equivalence classes.
 
+=head2 Vertex color
+
+As L<Graph|Graph> supports any data types as graph vertices, not much
+can be inferred about them automatically. For now, Graph::Nauty by
+default stringifies every vertex (using Perl C<""> operator) and splits
+them into equivalence classes. If different behavior is needed, a custom
+anonymous subroutine can be passed inside an option hash:
+
+  print orbits( $A, sub { return length $_[0] } );
+
+Subroutine gets a vertex as its 0th parameter, and is expected to return
+a string, or anything stringifiable.
+
+=head2 Edge color
+
+Edge colors are generated from L<Graph|Graph> edge attributes. Complete
+hash of each edge's attributes is stringified (deterministically) and
+used to divide edges into equivalence classes.
+
 =head1 INSTALLING
 
 Building and installing Graph::Nauty from source requires shared library
