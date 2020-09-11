@@ -8,6 +8,7 @@ our @ISA = qw( Exporter );
 our @EXPORT_OK = qw(
     are_isomorphic
     automorphism_group_size
+    canonical_order
     orbits
     orbits_are_same
 );
@@ -151,6 +152,20 @@ sub are_isomorphic
     }
 
     return aresame_sg( $statsblk1->{canon}, $statsblk2->{canon} );
+}
+
+sub canonical_order
+{
+    my( $graph, $color_sub, $order_sub ) = @_;
+
+    my( $nauty_graph, $labels, $breaks ) =
+        _nauty_graph( $graph, $color_sub, $order_sub );
+    my $statsblk = sparsenauty( $nauty_graph, $labels, $breaks,
+                                { getcanon => 1 } );
+
+    return grep { !blessed $_ || !$_->isa( Graph::Nauty::EdgeVertex:: ) }
+                map { $nauty_graph->{original}[$_] }
+                    @{$statsblk->{lab}};
 }
 
 sub orbits_are_same

@@ -1,3 +1,8 @@
+0.3.3 unreleased
+
+    - Added canonical_order() to get the canonical order of graph
+      vertices.
+
 0.3.2 2020-09-10
 
     - Extended POD documentation to cover vertex and edge colors.
