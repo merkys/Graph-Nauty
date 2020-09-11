@@ -196,7 +196,12 @@ Graph::Nauty - Perl bindings for nauty
 
 =head1 SYNOPSIS
 
-  use Graph::Nauty qw( are_isomorphic automorphism_group_size orbits );
+  use Graph::Nauty qw(
+      are_isomorphic
+      automorphism_group_size
+      canonical_order
+      orbits
+  );
   use Graph::Undirected;
 
   my $A = Graph::Undirected->new;
@@ -212,6 +217,9 @@ Graph::Nauty - Perl bindings for nauty
 
   # Check whether two graphs are isomorphs:
   print are_isomorphic( $A, $B );
+
+  # Get canonical order of vertices:
+  print canonical_order( $A );
 
 =head1 DESCRIPTION
 
@@ -236,6 +244,15 @@ anonymous subroutine can be passed inside an option hash:
 
 Subroutine gets a vertex as its 0th parameter, and is expected to return
 a string, or anything stringifiable.
+
+In subroutines where the order of returned vertices is important, a
+second anonymous subroutine can be passed to order vertices inside each
+of the equivalence classes:
+
+  print orbits( $A, sub { return length $_[0] }, sub { return "$_[0]" } );
+
+If an ordering subroutine is not given, stringification (Perl C<"">
+operator) is used by default.
 
 =head2 Edge color
 
