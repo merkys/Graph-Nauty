@@ -28,7 +28,7 @@ sub _cmp
 
     if( blessed $a && $a->isa( Graph::Nauty::EdgeVertex:: ) &&
         blessed $b && $b->isa( Graph::Nauty::EdgeVertex:: ) ) {
-        return "$a" cmp "$b";
+        return $a->color cmp $b->color;
     } elsif( blessed $a && $a->isa( Graph::Nauty::EdgeVertex:: ) ) {
         return 1;
     } elsif( blessed $b && $b->isa( Graph::Nauty::EdgeVertex:: ) ) {
