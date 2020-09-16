@@ -50,9 +50,9 @@ sub _nauty_graph
         my $graph_now = Graph::Undirected->new( vertices => [ $graph->vertices ] );
         for my $edge ( $graph->edges ) {
             if( $graph->has_edge_attributes( @$edge ) ) {
-                my $edge_node = Graph::Nauty::EdgeVertex->new( $graph->get_edge_attributes( @$edge ) );
-                $graph_now->add_edge( $edge->[0], $edge_node );
-                $graph_now->add_edge( $edge_node, $edge->[1] );
+                my $edge_vertex = Graph::Nauty::EdgeVertex->new( $graph->get_edge_attributes( @$edge ) );
+                $graph_now->add_edge( $edge->[0], $edge_vertex );
+                $graph_now->add_edge( $edge_vertex, $edge->[1] );
             } else {
                 $graph_now->add_edge( @$edge );
             }
