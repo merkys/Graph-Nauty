@@ -1,4 +1,4 @@
-0.3.3 unreleased
+0.3.3 2020-09-16
 
     - Fixed issue with treating edge vertices of one color as the same.
     - Added canonical_order() to get the canonical order of graph
