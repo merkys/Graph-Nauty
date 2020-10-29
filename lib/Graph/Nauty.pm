@@ -140,6 +140,10 @@ sub are_isomorphic
 
     return 0 if $nauty_graph1[0]->{nv} != $nauty_graph2[0]->{nv};
 
+    # aresame_sg() seemingly segfaults with empty graphs, thus this is
+    # a getaround to avoid it:
+    return 1 if $nauty_graph1[0]->{nv} == 0;
+
     my $statsblk1 = sparsenauty( @nauty_graph1, { getcanon => 1 } );
     my $statsblk2 = sparsenauty( @nauty_graph2, { getcanon => 1 } );
 
