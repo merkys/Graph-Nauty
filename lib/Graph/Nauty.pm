@@ -79,11 +79,15 @@ sub _nauty_graph
     for my $v (map { $vertices->{$_}{vertice} }
                sort { $vertices->{$a}{index} <=>
                       $vertices->{$b}{index} } keys %$vertices) {
-        push @{$nauty_graph->{d}}, scalar $graph->neighbours( $v );
+        # scalar $graph->neighbours( $v ) cannot be used to get the
+        # number of neighbours since Graph v0.9717, see
+        # https://github.com/graphviz-perl/Graph/issues/22
+        my @neighbours = $graph->neighbours( $v );
+        push @{$nauty_graph->{d}}, scalar @neighbours;
         push @{$nauty_graph->{v}}, scalar @{$nauty_graph->{e}};
         push @{$nauty_graph->{original}}, $v;
         for (sort { $vertices->{$a}{index} <=> $vertices->{$b}{index} }
-                  $graph->neighbours( $v )) {
+                  @neighbours) {
             push @{$nauty_graph->{e}}, $vertices->{$_}{index};
         }
         if( defined $prev ) {
