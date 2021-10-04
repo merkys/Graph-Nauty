@@ -44,7 +44,7 @@ sparsenauty(sg, lab, ptn, options)
         for( i = 0; i < sg.nv; i++ ) {
             av_store( orbits_return, i, newSViv( orbits[i] ) );
         }
-        hv_store( statsblk, "orbits", 6, newRV( (SV*)orbits_return ), 0 );
+        hv_store( statsblk, "orbits", 6, newRV_noinc( (SV*)orbits_return ), 0 );
         free( orbits );
         if( options.getcanon ) {
             HV *canon = newHV();
@@ -64,18 +64,18 @@ sparsenauty(sg, lab, ptn, options)
                 av_store( e, i, newSViv( sg2.e[i] ) );
             }
             SG_FREE( sg2 );
-            hv_store( canon, "v", 1, newRV( (SV*)v ), 0 );
-            hv_store( canon, "d", 1, newRV( (SV*)d ), 0 );
-            hv_store( canon, "e", 1, newRV( (SV*)e ), 0 );
+            hv_store( canon, "v", 1, newRV_noinc( (SV*)v ), 0 );
+            hv_store( canon, "d", 1, newRV_noinc( (SV*)d ), 0 );
+            hv_store( canon, "e", 1, newRV_noinc( (SV*)e ), 0 );
 
-            hv_store( statsblk, "canon", 5, newRV( (SV*)canon ), 0 );
+            hv_store( statsblk, "canon", 5, newRV_noinc( (SV*)canon ), 0 );
 
             AV *lab_return = newAV();
             for( i = 0; i < sg.nv; i++ ) {
                 av_store( lab_return, i, newSViv( lab[i] ) );
             }
 
-            hv_store( statsblk, "lab", 3, newRV( (SV*)lab_return ), 0 );
+            hv_store( statsblk, "lab", 3, newRV_noinc( (SV*)lab_return ), 0 );
         }
         free( lab );
         free( ptn );
@@ -88,3 +88,6 @@ bool
 aresame_sg(sg1, sg2)
         sparsegraph &sg1
         sparsegraph &sg2
+    CLEANUP:
+        SG_FREE( sg1 );
+        SG_FREE( sg2 );
