@@ -80,7 +80,7 @@ sparsenauty(sg, lab, ptn, options)
         free( lab );
         free( ptn );
         SG_FREE( sg );
-        RETVAL = newRV( (SV*)statsblk );
+        RETVAL = newRV_noinc( (SV*)statsblk );
     OUTPUT:
         RETVAL
 
