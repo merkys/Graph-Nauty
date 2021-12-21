@@ -1,3 +1,7 @@
+0.4.0 unreleased
+
+    - Relicensed as BSD-3-Clause, added license fulltext (GH#9).
+
 0.3.7 2021-10-04
 
     - Replaced av_top_index() with av_len() to retain backwards
