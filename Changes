@@ -1,6 +1,7 @@
 0.4.0 unreleased
 
     - Relicensed as BSD-3-Clause, added license fulltext (GH#9).
+    - Increased the workspace size to 6400 to handle even larger graphs.
 
 0.3.7 2021-10-04
 
