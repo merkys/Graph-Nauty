@@ -239,7 +239,7 @@ __END__
 
 =head1 NAME
 
-Graph::Nauty - Perl bindings for nauty
+Graph::Nauty - Perl bindings for Nauty
 
 =head1 SYNOPSIS
 
@@ -270,7 +270,7 @@ Graph::Nauty - Perl bindings for nauty
 
 =head1 DESCRIPTION
 
-Graph::Nauty provides an interface to nauty, a set of procedures for
+Graph::Nauty provides an interface to Nauty, a set of procedures for
 determining the automorphism group of a vertex-coloured graph, and for
 testing graphs for isomorphism.
 
@@ -310,13 +310,13 @@ used to divide edges into equivalence classes.
 =head1 INSTALLING
 
 Building and installing Graph::Nauty from source requires shared library
-and C headers for nauty, which can be downloaded from
+and C headers for Nauty, which can be downloaded from
 L<https://users.cecs.anu.edu.au/~bdm/nauty/>. Both the library and C
 headers have to be installed to locations visible by Perl's C compiler.
 
 =head1 SEE ALSO
 
-For the description of nauty refer to L<http://pallini.di.uniroma1.it>.
+For the description of Nauty refer to L<http://pallini.di.uniroma1.it>.
 
 =head1 AUTHOR
 
