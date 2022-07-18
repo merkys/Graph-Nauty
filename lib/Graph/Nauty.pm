@@ -15,6 +15,8 @@ our @EXPORT_OK = qw(
 
 # VERSION
 
+our $worksize = 0;
+
 require XSLoader;
 XSLoader::load('Graph::Nauty', $VERSION);
 
@@ -135,7 +137,8 @@ sub automorphism_group_size
     my( $graph, $color_sub ) = @_;
 
     my $statsblk = sparsenauty( _nauty_graph( $graph, $color_sub ),
-                                undef );
+                                undef,
+                                $worksize );
     return $statsblk->{grpsize1} * 10 ** $statsblk->{grpsize2};
 }
 
@@ -145,8 +148,11 @@ sub orbits
 
     my( $nauty_graph, $labels, $breaks ) =
         _nauty_graph( $graph, $color_sub, $order_sub );
-    my $statsblk = sparsenauty( $nauty_graph, $labels, $breaks,
-                                { getcanon => 1 } );
+    my $statsblk = sparsenauty( $nauty_graph,
+                                $labels,
+                                $breaks,
+                                { getcanon => 1 },
+                                $worksize );
 
     my $orbits = [];
     for my $i (@{$statsblk->{lab}}) {
@@ -178,8 +184,8 @@ sub are_isomorphic
     # a getaround to avoid it:
     return 1 if $nauty_graph1[0]->{nv} == 0;
 
-    my $statsblk1 = sparsenauty( @nauty_graph1, { getcanon => 1 } );
-    my $statsblk2 = sparsenauty( @nauty_graph2, { getcanon => 1 } );
+    my $statsblk1 = sparsenauty( @nauty_graph1, { getcanon => 1 }, $worksize );
+    my $statsblk2 = sparsenauty( @nauty_graph2, { getcanon => 1 }, $worksize );
 
     for my $i (0..$nauty_graph1[0]->{nv}-1) {
         my $j = $statsblk1->{lab}[$i];
@@ -198,8 +204,11 @@ sub canonical_order
 
     my( $nauty_graph, $labels, $breaks ) =
         _nauty_graph( $graph, $color_sub, $order_sub );
-    my $statsblk = sparsenauty( $nauty_graph, $labels, $breaks,
-                                { getcanon => 1 } );
+    my $statsblk = sparsenauty( $nauty_graph,
+                                $labels,
+                                $breaks,
+                                { getcanon => 1 },
+                                $worksize );
 
     return grep { !blessed $_ || !$_->isa( Graph::Nauty::EdgeVertex:: ) }
                 map { $nauty_graph->{original}[$_] }
