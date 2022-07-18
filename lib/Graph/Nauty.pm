@@ -307,6 +307,14 @@ Edge colors are generated from L<Graph|Graph> edge attributes. Complete
 hash of each edge's attributes is stringified (deterministically) and
 used to divide edges into equivalence classes.
 
+=head2 Working storage size
+
+Nauty needs working storage, which it does not allocate by itself.
+Graph::Nauty follows the advice of the Nauty user guide by allocating
+the recommended amount of memory, but for certain graphs this might not
+be enough, still. To control that, C<$Graph::Nauty::worksize> could be
+used to set the size of memory in the units of Nauty's C<setword>.
+
 =head1 INSTALLING
 
 Building and installing Graph::Nauty from source requires shared library
