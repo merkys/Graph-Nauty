@@ -71,14 +71,14 @@ sub _nauty_graph
     };
 
     my $n = 0;
-    my $vertices = { map { $_ => { index => $n++, vertice => $_ } }
+    my $vertices = { map { $_ => { index => $n++, vertex => $_ } }
                      sort { _cmp( $a, $b, $color_sub ) ||
                             _cmp( $a, $b, $order_sub ) }
                          $graph->vertices };
 
     my @breaks;
     my $prev;
-    for my $v (map { $vertices->{$_}{vertice} }
+    for my $v (map  { $vertices->{$_}{vertex} }
                sort { $vertices->{$a}{index} <=>
                       $vertices->{$b}{index} } keys %$vertices) {
         # scalar $graph->neighbours( $v ) cannot be used to get the
