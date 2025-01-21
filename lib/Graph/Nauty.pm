@@ -151,23 +151,19 @@ sub orbits
     my $statsblk = sparsenauty( $nauty_graph,
                                 $labels,
                                 $breaks,
-                                { getcanon => 1 },
+                                undef,
                                 $worksize );
 
-    my $orbits = [];
-    for my $i (@{$statsblk->{lab}}) {
-        next if blessed $nauty_graph->{original}[$i] &&
-             $nauty_graph->{original}[$i]->isa( Graph::Nauty::EdgeVertex:: );
-        if( !@$orbits || $statsblk->{orbits}[$i] !=
-            $statsblk->{orbits}[$orbits->[-1][0]] ) {
-            push @$orbits, [ $i ];
-        } else {
-            push @{$orbits->[-1]}, $i;
-        }
+    my %orbits;
+    for my $i (0..$nauty_graph->{nv}-1) {
+        my $vertex = $nauty_graph->{original}[$i];
+        next if blessed $vertex && $vertex->isa( Graph::Nauty::EdgeVertex:: );
+
+        my $orbit = $statsblk->{orbits}[$i];
+        push @{$orbits{$orbit}}, $vertex;
     }
 
-    return map { [ map { $nauty_graph->{original}[$_] } @$_ ] }
-               @$orbits;
+    return map { $orbits{$_} } sort keys %orbits;
 }
 
 sub are_isomorphic
