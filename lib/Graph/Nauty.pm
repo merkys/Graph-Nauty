@@ -16,6 +16,7 @@ our @EXPORT_OK = qw(
 # VERSION
 
 our $worksize = 0;
+our $warn_deprecated = 1;
 
 require XSLoader;
 XSLoader::load('Graph::Nauty', $VERSION);
@@ -221,6 +222,9 @@ sub orbits_are_same
     $color_sub = sub { "$_[0]" } unless $color_sub;
 
     return 0 if !$graph1->could_be_isomorphic( $graph2 );
+
+    warn 'orbits_are_same() is deprecated, as order of orbits may be different ' .
+         'even in isomorphic graphs' . "\n" if $warn_deprecated;
 
     my @orbits1 = orbits( $graph1, $color_sub );
     my @orbits2 = orbits( $graph2, $color_sub );

@@ -9,6 +9,8 @@ use Graph::Nauty qw(
 use Graph::Undirected;
 use Test::More tests => 4;
 
+$Graph::Nauty::warn_deprecated = '';
+
 my %atoms = (
     C  => { name => 'C',  type => 'C' },
     O  => { name => 'O',  type => 'O' },
