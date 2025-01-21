@@ -215,6 +215,7 @@ sub canonical_order
                     @{$statsblk->{lab}};
 }
 
+# DEPRECATED: order of orbits may be different even in isomorphic graphs
 sub orbits_are_same
 {
     my( $graph1, $graph2, $color_sub ) = @_;
