@@ -48,6 +48,8 @@ sub _nauty_graph
     $color_sub = sub { "$_[0]" } unless $color_sub;
     $order_sub = sub { "$_[0]" } unless $order_sub;
 
+    die "cannot handle self-loops\n" if $graph->self_loop_vertices;
+
     if( grep { $graph->has_edge_attributes( @$_ ) } $graph->edges ) {
         # colored bonds detected, need to transform the graph
         my $graph_now = Graph::Undirected->new( vertices => [ $graph->vertices ] );
